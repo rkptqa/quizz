@@ -1181,7 +1181,7 @@ questions.forEach((q, index) => {
     `;
   });
 
-  html += `<button onclick="checkAnswer(${index})">Submit</button>`;
+  html += `<button onclick="checkAnswer(${index})">Vasta</button>`;
   html += `<p id="result${index}"></p>`;
 
   div.innerHTML = html;
