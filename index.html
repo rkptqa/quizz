@@ -2,6 +2,7 @@
 <html lang="et">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Relvaeksami Quiz</title>
   <link rel="stylesheet" href="style.css">
 </head>
@@ -10,6 +11,7 @@
 <h1>Relvaeksami küsimused (2025)</h1>
 
 <button id="scrollBottomBtn" onclick="scrollToBottom()">⬇</button>
+<button id="scrollTopBtn" onclick="scrollToTop()">⬆</button>
 
 
 <div id="quiz"></div>
@@ -43,7 +45,11 @@ Relva peab kandma varjatult ainult juhul, kui see segab kõrval viibivaid inimes
 </p>
 
 <div class="bottom-controls">
-  <button onclick="clearAll()">Clear All Answers</button>
+  <button onclick="clearAll()">Alusta uuesti</button>
+</div>
+
+<div id="scoreCounter">
+  0 / 0 correct
 </div>
 
 <script src="script.js"></script>

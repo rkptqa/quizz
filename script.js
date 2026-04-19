@@ -1,3 +1,9 @@
+let correctCount = 0;
+let answeredCount = 0;
+
+
+const answeredQuestions = new Set();
+
 const questions = [
   {
     question: "Relvade kollektsioneerimiseks",
@@ -1196,6 +1202,26 @@ function checkAnswer(qIndex) {
     selectedValues.length === correctAnswers.length &&
     selectedValues.every(v => correctAnswers.includes(v));
 
+
+  if (!answeredQuestions.has(qIndex)) {
+    answeredQuestions.add(qIndex);
+    answeredCount++;
+
+    if (isCorrect) {
+      correctCount++;
+    }
+  } else {
+
+    const wasCorrect = result.classList.contains("correct");
+
+    if (wasCorrect && !isCorrect) {
+      correctCount--;
+    } else if (!wasCorrect && isCorrect) {
+      correctCount++;
+    }
+  }
+
+  // Update UI
   if (isCorrect) {
     result.textContent = "Correct!";
     result.className = "correct";
@@ -1203,6 +1229,8 @@ function checkAnswer(qIndex) {
     result.textContent = "Wrong!";
     result.className = "wrong";
   }
+
+  updateCounter();
 }
 
 function scrollToBottom() {
@@ -1212,16 +1240,35 @@ function scrollToBottom() {
   });
 }
 
-// Clear all answers + results
+function scrollToTop() {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+}
+
+function updateCounter() {
+  const counter = document.getElementById("scoreCounter");
+  counter.textContent = `${correctCount} / ${answeredCount} õige (128)`;
+}
+
+
 function clearAll() {
-  // Uncheck all checkboxes
+
   document.querySelectorAll("input[type='checkbox']").forEach(cb => {
     cb.checked = false;
   });
 
-  // Clear all result texts
+
   document.querySelectorAll("p[id^='result']").forEach(p => {
     p.textContent = "";
     p.className = "";
   });
+
+  correctCount = 0;
+  answeredCount = 0;
+  answeredQuestions.clear();
+
+  updateCounter();
+  scrollToTop();
 }
