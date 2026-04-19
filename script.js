@@ -1223,10 +1223,10 @@ function checkAnswer(qIndex) {
 
   // Update UI
   if (isCorrect) {
-    result.textContent = "Correct!";
+    result.textContent = "Õige!";
     result.className = "correct";
   } else {
-    result.textContent = "Wrong!";
+    result.textContent = "Vale!";
     result.className = "wrong";
   }
 
@@ -1249,7 +1249,7 @@ function scrollToTop() {
 
 function updateCounter() {
   const counter = document.getElementById("scoreCounter");
-  counter.textContent = `${correctCount} / ${answeredCount} õige (128)`;
+  counter.textContent = `${correctCount} / ${answeredCount} õigesti vastatud (128)`;
 }
 
 
