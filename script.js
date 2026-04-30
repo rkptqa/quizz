@@ -324,10 +324,10 @@ const questions = [
     {
     question: "Hädakaitse piire ei ületata kui isik ",
     answers: [
-      { text: "vAsub kaitsma ennast ründe eest vahenditega, mis vastavad ründe ohtlikkusele", correct: true },
+      { text: "asub kaitsma ennast ründe eest vahenditega, mis vastavad ründe ohtlikkusele", correct: true },
       { text: "tekitab ründajale tahtlikult suurema kahju ", correct: false },
       { text: "kasutab vahendeid, mis ületavad ründe ohtlikkuse", correct: false },
-      { text: "Asub kaitsma teist isikut ründe eest vahenditega, mis vastavad ründe ohtlikkusele.", correct: true }
+      { text: "asub kaitsma teist isikut ründe eest vahenditega, mis vastavad ründe ohtlikkusele.", correct: true }
     ]
   },
     {
@@ -354,7 +354,7 @@ const questions = [
       { text: "valmistatud tootja poolt tulirelvade hoiustamiseks", correct: false },
       { text: "valmistatud vähemalt 3 mm paksusest terasplekist", correct: true },
       { text: "varustatud vähemalt ühe turvalukuga", correct: true },
-      { text: "varustatud vähemalt kahe turvalukuga", correct: true }
+      { text: "varustatud vähemalt kahe turvalukuga", correct: false }
     ]
   },
     {
@@ -378,7 +378,7 @@ const questions = [
     {
     question: "Relva võib laskekõlbmatuks muuta",
     answers: [
-      { text: "ulirelva omaniku enda loal", correct: false },
+      { text: "Tulirelva omaniku enda loal", correct: false },
       { text: "Politsei- ja Piirivalveameti loal", correct: true },
       { text: "Maksu- ja Tolliameti loal", correct: false },
       { text: "Siseministri loal ", correct: false }
@@ -730,7 +730,7 @@ const questions = [
     question: "Lasersihikut võib:",
     answers: [
       { text: "Soetada ja kodus hoida vähemalt 16 aastane isik.", correct: false },
-      { text: "avalikel üritustel varjatult kanda.", correct: false },
+      { text: "Avalikel üritustel varjatult kanda.", correct: false },
       { text: "Kasutada enesekaitsel sihtimise hõlbustamiseks, kuid ei tohi ületada hädakaitse piiri.", correct: false },
       { text: "Soetada, omada ja vallata ainult vastava spordialaga tegelemise eesmärgil.", correct: true }
     ]
@@ -839,7 +839,7 @@ const questions = [
     answers: [
       { text: "Võib omandada helisummutit", correct: true },
       { text: "Võib kasutada lasketiirus lasersihikut", correct: false },
-      { text: "SEi või laskeharjutusel kasutada öösihikut", correct: true },
+      { text: "Ei või laskeharjutusel kasutada öösihikut", correct: true },
       { text: "Peab relvaloa pikendamisel sooritama laskekatse", correct: true }
     ]
   },
@@ -1108,7 +1108,7 @@ const questions = [
           {
     question: "Tulirelva olulised osad on:",
     answers: [
-      { text: "Padrunisalv", correct: true },
+      { text: "Padrunisalv", correct: false },
       { text: "Lukk", correct: true },
       { text: "Kaitseriiv", correct: false },
       { text: "Relvaraam ", correct: true },
@@ -1182,6 +1182,7 @@ questions.forEach((q, index) => {
   });
 
   html += `<button onclick="checkAnswer(${index})">Vasta</button>`;
+  html += `<button class="show-answers-btn" onclick="showCorrectAnswers(${index})">Spikerda</button>`;
   html += `<p id="result${index}"></p>`;
 
   div.innerHTML = html;
@@ -1250,6 +1251,23 @@ function scrollToTop() {
 function updateCounter() {
   const counter = document.getElementById("scoreCounter");
   counter.textContent = `${correctCount} / ${answeredCount} õigesti vastatud (128)`;
+}
+
+function showCorrectAnswers(qIndex) {
+  const inputs = document.querySelectorAll(`input[name="q${qIndex}"]`);
+
+  inputs.forEach((input, i) => {
+    const label = input.parentElement;
+    const isCorrect = questions[qIndex].answers[i].correct;
+
+    label.classList.remove("correct", "wrong");
+
+    if (isCorrect) {
+      label.classList.add("correct");
+    } else if (input.checked) {
+      label.classList.add("wrong");
+    }
+  });
 }
 
 
